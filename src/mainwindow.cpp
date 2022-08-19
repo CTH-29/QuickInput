@@ -278,10 +278,12 @@ void MainWindow::HowToUse(void)
 }
 void MainWindow::About(void)
 {
+    QString link = QString("https://github.com/CTH-29/QuickInput");
     QMessageBox::information(this,"about",
                             "项目GitHub:(ctrl+v试试)\n"
                             "致敬https://github.com/Savior2016/commander\n"
                          ,QMessageBox::Ok);
+    this->clipboard->setText(link);
 }
 
 void MainWindow::ResizeButton(void)
