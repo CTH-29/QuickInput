@@ -9,7 +9,6 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->setWindowTitle( "QuickInput" );
     this->setWindowFlags(this->windowFlags()&~Qt::WindowMinMaxButtonsHint);
-    this->setWindowIcon(QIcon(":/img/icon.png"));
 
     clipboard = QApplication::clipboard();
 
@@ -26,12 +25,27 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->actionHow_to_Use, SIGNAL(triggered()), this, SLOT(HowToUse()));
     connect(ui->actionAbout, SIGNAL(triggered()), this, SLOT(About()));
 
-    this->ui->groupBox->setEnabled(false);
-
     LoadAll();
 
+    this->ui->groupBox->setEnabled(false);
     this->ui->tabWidget->setCurrentIndex(0);
 
+    if( !this->settings->contains("showEdit") )
+        this->settings->setValue("showEdit",true);
+    if( !this->settings->contains("AlwaysOnTop") )
+        this->settings->setValue("AlwaysOnTop",false);
+
+    if(this->settings->value("showEdit").toBool() == false )
+        this->ui->groupBox->setVisible(false);
+    else
+        this->ui->groupBox->setVisible(true);
+
+    if(this->settings->value("AlwaysOnTop").toBool() == false )
+        this->setWindowFlags(this->windowFlags() & ~Qt::WindowStaysOnTopHint);
+    else
+        this->setWindowFlags(this->windowFlags() | Qt::WindowStaysOnTopHint);
+
+    this->show();
 }
 
 MainWindow::~MainWindow()
@@ -210,11 +224,13 @@ void MainWindow::ShowHideEdit(void)
 {
     QGroupBox *edit = this->ui->centralwidget->findChild<QGroupBox*>("groupBox");
     edit->setVisible(!edit->isVisible());
+    this->settings->setValue("showEdit",!this->settings->value("showEdit").toBool());
 }
 
 void MainWindow::AlwaysOntop()
 {
     this->setWindowFlags(this->windowFlags() ^ Qt::WindowStaysOnTopHint);
+    this->settings->setValue("AlwaysOnTop",!this->settings->value("AlwaysOnTop").toBool());
     this->show();
 }
 
