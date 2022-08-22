@@ -25,7 +25,7 @@
 
 <https://github.com/CTH-29/QuickInput/releases/>
 
-通过菜单栏 `Settings` 下的 `Show/Hide Edit` 可以新增一个tab页面
+通过菜单栏 `Settings` 下的 `Show/Hide Edit` 可以显示/隐藏用来编辑的文本框
 
 通过菜单栏 `Settings` 下的 `Always on Top` 可以将当前窗口置顶（始终显示在最上层）或者取消置顶
 
